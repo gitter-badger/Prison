@@ -1,4 +1,5 @@
 language: java
 branches:
   only:
+    - master
     - 3.0
