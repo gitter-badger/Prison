@@ -19,6 +19,7 @@ package io.github.sirfaizdat.prison;
 import org.bukkit.command.CommandSender;
 
 import io.github.sirfaizdat.prison.foundation.command.Command;
+import io.github.sirfaizdat.prison.foundation.module.Module;
 import io.github.sirfaizdat.prison.foundation.util.TextUtil;
 
 /**
@@ -42,6 +43,13 @@ class PrisonCommand {
                 "found." : Prison.instance.getIntegrationHandler().getEconomy().getPluginName();
         sender.sendMessage(TextUtil.parse("Permissions: %s", permissionsPlugin));
         sender.sendMessage(TextUtil.parse("Economy: %s", economyPlugin));
+
+        // Module information
+        sender.sendMessage("Modules:");
+        if (Prison.instance.getModuleManager().getAllModules().size() == 0) sender.sendMessage(TextUtil.parse("     &7&oNone."));
+        else
+            for (Module module : Prison.instance.getModuleManager().getAllModules())
+                sender.sendMessage(TextUtil.parse("     %s: &c%s", module.getName(), module.getStatus()));
     }
 
     @Command(identifier = "prison version", description = "Information about Prison's status.", permissions = {"prison" +
