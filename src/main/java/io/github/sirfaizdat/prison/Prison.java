@@ -16,7 +16,6 @@
 
 package io.github.sirfaizdat.prison;
 
-import org.bukkit.event.server.PluginEnableEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import io.github.sirfaizdat.prison.foundation.command.CommandHandler;
@@ -39,15 +38,25 @@ public class Prison extends JavaPlugin {
     public void onEnable() {
         instance = this;
 
-        integrationHandler = new IntegrationHandler();
-
-        moduleManager = new ModuleManager();
-        moduleManager.registerModule(new TestModule());
-
-        commandHandler = new CommandHandler(this);
-        commandHandler.registerCommands(new PrisonCommand());
+        initFoundation();
+        initModules();
+        initUserInterface();
 
         getLogger().info("Enabled " + getDescription().getFullName() + ". Crafted with <3 by SirFaizdat and contributors.");
+    }
+
+    private void initFoundation() {
+        integrationHandler = new IntegrationHandler();
+        commandHandler = new CommandHandler(this);
+        moduleManager = new ModuleManager();
+    }
+
+    private void initModules() {
+        moduleManager.registerModule(new TestModule());
+    }
+
+    private void initUserInterface() {
+        commandHandler.registerCommands(new PrisonCommand());
     }
 
     @Override
