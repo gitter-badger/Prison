@@ -14,25 +14,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package io.github.sirfaizdat.prison;
+package io.github.sirfaizdat.prison.modules.mines;
 
-import org.bukkit.Bukkit;
-
+import io.github.sirfaizdat.prison.Prison;
 import io.github.sirfaizdat.prison.foundation.module.Module;
 
 /**
  * @author SirFaizdat
  */
-public class TestModule extends Module {
+public class MinesModule extends Module {
 
-    public TestModule() {
-        super("Test");
+    public MinesModule() {
+        super("Mines");
     }
 
     @Override
     public void init() {
-        if (Prison.instance.getIntegrationHandler().getEconomy() == null) {
-            fail("Dependency missing: Economy plugin not found.");
+        if(Prison.instance.getIntegrationHandler().getWorldEdit() == null) {
+            fail("WorldEdit not found");
+            return;
         }
     }
 }

@@ -21,6 +21,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import io.github.sirfaizdat.prison.foundation.command.CommandHandler;
 import io.github.sirfaizdat.prison.foundation.integration.IntegrationHandler;
 import io.github.sirfaizdat.prison.foundation.module.ModuleManager;
+import io.github.sirfaizdat.prison.modules.mines.MinesModule;
 
 /**
  * Main class for the plugin.
@@ -52,7 +53,7 @@ public class Prison extends JavaPlugin {
     }
 
     private void initModules() {
-        moduleManager.registerModule(new TestModule());
+        moduleManager.registerModule(new MinesModule());
     }
 
     private void initUserInterface() {

@@ -41,8 +41,8 @@ class PrisonCommand {
                 "found." : Prison.instance.getIntegrationHandler().getPermissions().getPluginName();
         String economyPlugin = Prison.instance.getIntegrationHandler().getEconomy() == null ? "&cNo economy plugin " +
                 "found." : Prison.instance.getIntegrationHandler().getEconomy().getPluginName();
-        sender.sendMessage(TextUtil.parse("Permissions: %s", permissionsPlugin));
-        sender.sendMessage(TextUtil.parse("Economy: %s", economyPlugin));
+        sender.sendMessage(TextUtil.parse("Permissions: &a%s", permissionsPlugin));
+        sender.sendMessage(TextUtil.parse("Economy: &a%s", economyPlugin));
 
         // Module information
         sender.sendMessage("Modules:");

@@ -4,7 +4,7 @@ description: ${project.description}
 author: SirFaizdat
 website: ${project.url}
 main: io.github.sirfaizdat.prison.Prison
-softdepend: [Essentials, iConomy, PermissionsEx, GroupManager]
+softdepend: [Essentials, iConomy, PermissionsEx, GroupManager, WorldEdit]
 commands:
   prison:
     description: Commands for managing and checking on Prison.

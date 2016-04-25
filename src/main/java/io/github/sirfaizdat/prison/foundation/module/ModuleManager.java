@@ -17,18 +17,21 @@
 package io.github.sirfaizdat.prison.foundation.module;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.permissions.ServerOperator;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import io.github.sirfaizdat.prison.Prison;
 import io.github.sirfaizdat.prison.foundation.module.events.ModuleFailEvent;
 import io.github.sirfaizdat.prison.foundation.module.events.ModuleRegisterEvent;
+import mkremins.fanciful.FancyMessage;
 
 /**
  * Stores instances of all modules and handles enabling and disablinb them.
@@ -38,12 +41,12 @@ import io.github.sirfaizdat.prison.foundation.module.events.ModuleRegisterEvent;
 public class ModuleManager implements Listener {
 
     private List<Module> modules;
-    public Map<String, String> moduleStatusMap;
+    private boolean anyFailures = false;
 
     public ModuleManager() {
         modules = new ArrayList<>();
-        moduleStatusMap = new HashMap<>();
         Bukkit.getServer().getPluginManager().registerEvents(this, Prison.instance);
+        Bukkit.getServer().getScheduler().runTask(Prison.instance, () -> Bukkit.getOnlinePlayers().stream().filter(ServerOperator::isOp).forEach(this::sendFailureMessage));
     }
 
     /**
@@ -56,12 +59,11 @@ public class ModuleManager implements Listener {
         modules.add(module);
     }
 
-
     public void enableModule(Module m) {
         if (m.isEnabled()) return;
         m.init();
         m.setEnabled(true);
-        if(m.getStatus() == null) m.setStatus("&aEnabled");
+        if (m.getStatus() == null) m.setStatus("&aEnabled");
     }
 
     public void disableModule(Module m) {
@@ -69,6 +71,13 @@ public class ModuleManager implements Listener {
         m.deinit();
         m.setEnabled(false);
         m.setStatus("&cDisabled");
+    }
+
+    private void sendFailureMessage(Player player) {
+        if (!anyFailures) return;
+        new FancyMessage("An error has occurred while enabling Prison. ").color(ChatColor.RED)
+                .then("Click here for more information.").color(ChatColor.RED).style(ChatColor.ITALIC).command("/prison status")
+                .send(player);
     }
 
     public void enableAll() {
@@ -97,6 +106,12 @@ public class ModuleManager implements Listener {
     @EventHandler
     public void onModuleFail(ModuleFailEvent e) {
         e.getModule().setEnabled(false);
+        anyFailures = true;
+    }
+
+    @EventHandler
+    public void onPlayerJoin(PlayerJoinEvent e) {
+        sendFailureMessage(e.getPlayer());
     }
 
 }

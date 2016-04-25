@@ -44,6 +44,8 @@ public class IntegrationHandler {
         // Permissions
         manager.load(GroupManagerIntegration.class);
         manager.load(PermissionsExIntegration.class);
+        // Selection
+        manager.load(WorldEditIntegration.class);
     }
 
     public EconomyIntegration getEconomy() {
@@ -56,6 +58,12 @@ public class IntegrationHandler {
         Optional<Integration> opt = manager.get("permissions");
         if (!opt.isPresent()) return null;
         return (PermissionIntegration) opt.get();
+    }
+
+    public WorldEditIntegration getWorldEdit() {
+        Optional<Integration> opt = manager.get("selection");
+        if (!opt.isPresent()) return null;
+        return (WorldEditIntegration) opt.get();
     }
 
 }
