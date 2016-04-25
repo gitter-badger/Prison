@@ -1,3 +1,7 @@
+# Prison 3.0
+[![Build Status](https://travis-ci.org/SirFaizdat/Prison.svg?branch=3.0)](https://travis-ci.org/SirFaizdat/Prison)
+[![License](https://img.shields.io/badge/license-GPL%20License%20v3-blue.svg)](LICENSE.md)
+
 ## Synopsis
 
 Prison is a plugin for Bukkit and Spigot that combines the strengths of the leading plugins for the prison gamememode, in order to create a functional server simply. 
